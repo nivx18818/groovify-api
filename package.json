@@ -6,8 +6,8 @@
     "@": "./src"
   },
   "scripts": {
-    "dev": "node --watch server.js",
-    "start": "node server.js",
+    "dev": "node --watch server.ts",
+    "start": "node server.ts",
     "db:migrate": "sequelize-cli db:migrate",
     "db:migrate:undo:all": "sequelize-cli db:migrate:undo:all",
     "migration:create": "sequelize-cli migration:create"
