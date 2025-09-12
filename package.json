@@ -1,4 +1,17 @@
 {
+  "name": "groovify-api",
+  "version": "1.0.0",
+  "main": "server.ts",
+  "_moduleAliases": {
+    "@": "./src"
+  },
+  "scripts": {
+    "dev": "node --watch server.js",
+    "start": "node server.js",
+    "db:migrate": "sequelize-cli db:migrate",
+    "db:migrate:undo:all": "sequelize-cli db:migrate:undo:all",
+    "migration:create": "sequelize-cli migration:create"
+  },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^17.2.2",
@@ -9,5 +22,16 @@
   "devDependencies": {
     "@types/node": "^24.3.1",
     "sequelize-cli": "^6.6.3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nivx18818/groovify-api.git"
+  },
+  "author": "NguyenXuanVinh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nivx18818/groovify-api/issues"
+  },
+  "homepage": "https://github.com/nivx18818/groovify-api#readme",
+  "description": ""
 }
