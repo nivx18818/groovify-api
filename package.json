@@ -6,8 +6,8 @@
     "@": "./src"
   },
   "scripts": {
-    "dev": "node --watch server.ts",
-    "start": "node server.ts",
+    "dev": "ts-node --watch server.ts",
+    "start": "ts-node server.ts",
     "db:migrate": "sequelize-cli db:migrate",
     "db:migrate:undo:all": "sequelize-cli db:migrate:undo:all",
     "migration:create": "sequelize-cli migration:create"
@@ -22,7 +22,8 @@
   },
   "devDependencies": {
     "@types/node": "^24.3.1",
-    "sequelize-cli": "^6.6.3"
+    "sequelize-cli": "^6.6.3",
+    "ts-node": "^10.9.2"
   },
   "repository": {
     "type": "git",
