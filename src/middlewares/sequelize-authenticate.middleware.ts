@@ -1,4 +1,4 @@
-import { sequelize } from "@/models";
+import { sequelize } from "@/models/index.ts";
 import { NextFunction, Request, Response } from "express";
 
 const sequelizeAuthenticate = async (_req: Request, _res: Response, next: NextFunction) => {
