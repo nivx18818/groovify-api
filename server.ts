@@ -2,11 +2,11 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 
-import mainRouter from "@/routes/index";
+import mainRouter from "@/routes/index.ts";
 
-import response from "@/middlewares/response.middleware";
-import handleError from "@/middlewares/handle-error.middleware";
-import sequelizeAuthenticate from "@/middlewares/sequelize-authenticate.middleware";
+import response from "@/middlewares/response.middleware.ts";
+import handleError from "@/middlewares/handle-error.middleware.ts";
+import sequelizeAuthenticate from "@/middlewares/sequelize-authenticate.middleware.ts";
 
 const app = express();
 const port = 3001;
