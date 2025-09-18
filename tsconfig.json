@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "target": "es2020",
-    "module": "ES2020",
+    "target": "es2022",
+    "module": "nodenext",
     "strict": true,
-    "moduleResolution": "node",
+    "moduleResolution": "nodenext",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
