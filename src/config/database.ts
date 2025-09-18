@@ -1,7 +1,6 @@
-require("dotenv").config();
-const fs = require("fs");
+import "dotenv/config";
 
-module.exports = {
+export default {
   development: {
     username: process.env.DEV_DB_USERNAME,
     password: process.env.DEV_DB_PASSWORD,

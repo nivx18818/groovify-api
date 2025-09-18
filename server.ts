@@ -1,14 +1,12 @@
-require("dotenv").config();
-require("module-alias/register");
+import "dotenv/config";
+import express from "express";
+import cors from "cors";
 
-const express = require("express");
-const cors = require("cors");
+import mainRouter from "@/routes/index";
 
-const mainRouter = require("@/routes");
-
-const response = require("@/middlewares/response.middleware");
-const handleError = require("@/middlewares/handle-error.middleware");
-const sequelizeAuthenticate = require("@/middlewares/sequelize-authenticate.middleware");
+import response from "@/middlewares/response.middleware";
+import handleError from "@/middlewares/handle-error.middleware";
+import sequelizeAuthenticate from "@/middlewares/sequelize-authenticate.middleware";
 
 const app = express();
 const port = 3001;

@@ -1,6 +1,7 @@
-const { sequelize } = require("@/models");
+import { sequelize } from "@/models";
+import { NextFunction, Request, Response } from "express";
 
-const sequelizeAuthenticate = async (req, res, next) => {
+const sequelizeAuthenticate = async (_req: Request, _res: Response, next: NextFunction) => {
   try {
     await sequelize.authenticate();
     console.log("Connection has been established successfully.");
@@ -11,4 +12,4 @@ const sequelizeAuthenticate = async (req, res, next) => {
   }
 };
 
-module.exports = sequelizeAuthenticate;
+export default sequelizeAuthenticate;
