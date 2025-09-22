@@ -1,6 +1,6 @@
 import "dotenv/config";
 
-export default {
+const configData = {
   development: {
     username: process.env.DEV_DB_USERNAME,
     password: process.env.DEV_DB_PASSWORD,
@@ -47,3 +47,5 @@ export default {
     },
   },
 };
+
+export default configData;
