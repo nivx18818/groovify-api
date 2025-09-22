@@ -1,8 +1,8 @@
 import fs from "fs";
 import path from "path";
-import { Sequelize, DataTypes } from "sequelize";
 import { fileURLToPath } from "url";
-import configData from "../config/database.js";
+import { Sequelize, DataTypes } from "sequelize";
+import configData from "@/config/database.ts";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -15,7 +15,12 @@ let sequelize: Sequelize;
 if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable]!, config);
 } else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
+  sequelize = new Sequelize(
+    config.database,
+    config.username,
+    config.password,
+    config
+  );
 }
 
 fs.readdirSync(__dirname)
@@ -28,7 +33,10 @@ fs.readdirSync(__dirname)
     );
   })
   .forEach(async (file) => {
-    const model = (await import(path.join(__dirname, file))).default(sequelize, DataTypes);
+    const model = (await import(path.join(__dirname, file))).default(
+      sequelize,
+      DataTypes
+    );
     db[model.name] = model;
   });
 
