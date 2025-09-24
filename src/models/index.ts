@@ -1,15 +1,9 @@
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
 import { Sequelize, DataTypes } from "sequelize";
 import configData from "@/config/database.ts";
+import trackModel from "./track.model.ts";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || "development";
 const config = (configData as any)[env];
-const db: any = {};
 
 let sequelize: Sequelize;
 if (config.use_env_variable) {
@@ -23,31 +17,13 @@ if (config.use_env_variable) {
   );
 }
 
-fs.readdirSync(__dirname)
-  .filter((file) => {
-    return (
-      file.indexOf(".") !== 0 &&
-      file !== basename &&
-      file.slice(-3) === ".js" &&
-      file.indexOf(".test.js") === -1
-    );
-  })
-  .forEach(async (file) => {
-    const model = (await import(path.join(__dirname, file))).default(
-      sequelize,
-      DataTypes
-    );
-    db[model.name] = model;
-  });
+const Track = trackModel(sequelize, DataTypes);
 
-Object.keys(db).forEach((modelName) => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
-  }
-});
+const db = {
+  sequelize,
+  Sequelize,
+  Track,
+};
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
-
-export { sequelize };
+export { Track };
 export default db;
