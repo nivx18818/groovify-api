@@ -49,7 +49,7 @@ export interface NextData {
   };
 }
 
-export interface Track extends Omit<TrackEntity, "artists"> {
+export interface TrackType extends Omit<TrackEntity, "artists"> {
   artists: string[];
 }
 

@@ -1,4 +1,12 @@
-import { AlbumEntity, ArtistEntity, CrawlFunction, NextData, SpotifyAlbumUrl, Track, TrackEntity } from "@/types/spotify-types.ts";
+import {
+  AlbumEntity,
+  ArtistEntity,
+  CrawlFunction,
+  NextData,
+  SpotifyAlbumUrl,
+  TrackType,
+  TrackEntity,
+} from "@/types/spotify-types.ts";
 import puppeteer from "puppeteer";
 
 const visitedPlaylists = new Set<string>();
@@ -8,10 +16,10 @@ const visitedTracks = new Set<string>();
 const crawlSpotify = async (
   seedPlaylists: SpotifyAlbumUrl[],
   depth = 3
-): Promise<Track[]> => {
+): Promise<TrackType[]> => {
   const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
-  const results: Track[] = [];
+  const results: TrackType[] = [];
   const SPOTIFY_EMBED_ORIGIN = "https://open.spotify.com/embed";
 
   const crawlTrack: CrawlFunction = async (id, d) => {
@@ -55,7 +63,7 @@ const crawlSpotify = async (
     const data = await page.$eval("#__NEXT_DATA__", (el) => {
       const pageData = el.textContent;
       return JSON.parse(pageData) as NextData;
-    })
+    });
 
     const entity = data?.props?.pageProps?.state?.data?.entity as ArtistEntity;
     const trackList = entity?.trackList ?? [];
