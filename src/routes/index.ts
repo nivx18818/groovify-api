@@ -3,7 +3,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import express from "express";
 import { Op } from "sequelize";
-import models from "@/models/index.js";
+import db from "@/models/index.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -23,7 +23,7 @@ fs.readdirSync(__dirname)
     );
     const resource = file.split(".")[0]; // E.g. post.route.js -> post
     const modelName = resource[0].toUpperCase() + resource.slice(1); // E.g. post -> Post
-    const model = models[modelName];
+    const model = db[modelName];
 
     subRouter.param("id", async (req: any, res: any, next: any, id: any) => {
       const options: any = {
