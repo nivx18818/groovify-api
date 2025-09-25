@@ -6,7 +6,6 @@ import {
 } from "@/types/spotify-types.ts";
 import {
   CreationOptional,
-  DataTypes,
   InferAttributes,
   InferCreationAttributes,
   Model,
@@ -73,4 +72,6 @@ export default (sequelize: Sequelize, DataTypes: SequelizeDataTypes) => {
       tableName: "tracks",
     }
   );
+
+  return Track;
 };
