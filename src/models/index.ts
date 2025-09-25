@@ -19,7 +19,7 @@ if (config.use_env_variable) {
 
 const Track = trackModel(sequelize, DataTypes);
 
-const db = {
+const db: Record<string, any> = {
   sequelize,
   Sequelize,
   Track,
