@@ -1,9 +1,13 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import express from "express";
+import express, { NextFunction, Request, Response } from "express";
 import { Op } from "sequelize";
 import db from "@/models/index.js";
+
+interface CustomRequest extends Request {
+  [key: string]: any;
+}
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -25,18 +29,21 @@ fs.readdirSync(__dirname)
     const modelName = resource[0].toUpperCase() + resource.slice(1); // E.g. post -> Post
     const model = db[modelName];
 
-    subRouter.param("id", async (req: any, res: any, next: any, id: any) => {
-      const options: any = {
-        where: { [Op.or]: [{ id }] },
-      };
-      if (include) options.include = include;
+    subRouter.param(
+      "id",
+      async (req: Request, res: Response, next: NextFunction, id: any) => {
+        const options: any = {
+          where: { [Op.or]: [{ id }] },
+        };
+        if (include) options.include = include;
 
-      const value = await model.findOne(options);
-      if (!value) return (res as any).error(404, `${modelName} not found`);
-      req[modelName.toLowerCase()] = value;
+        const value = await model.findOne(options);
+        if (!value) return res.error(404, `${modelName} not found`);
+        (req as CustomRequest)[modelName.toLowerCase()] = value;
 
-      next();
-    });
+        next();
+      }
+    );
 
     const pathname = (() => {
       switch (resource) {
