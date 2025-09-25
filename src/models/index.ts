@@ -25,5 +25,5 @@ const db = {
   Track,
 };
 
-export { Track };
+export { sequelize, Sequelize, Track };
 export default db;
