@@ -1,5 +1,5 @@
 import { Sequelize, DataTypes } from "sequelize";
-import configData from "@/config/database.ts";
+import configData from "@/config/database.js";
 import trackModel from "./track.model.ts";
 
 const env = process.env.NODE_ENV || "development";
