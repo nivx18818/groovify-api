@@ -1,6 +1,5 @@
+import { sequelize, Track } from "@/models/index.ts";
 import crawlSpotify from "@/utils/spotify-crawler.ts";
-import { Track } from "@/models/index.ts";
-import db from "@/models/index.ts";
 import { SpotifyAlbumUrl } from "@/types/spotify-types.ts";
 
 const seedPlaylists: SpotifyAlbumUrl[] = [
@@ -12,16 +11,12 @@ const seedPlaylists: SpotifyAlbumUrl[] = [
 ];
 
 (async () => {
-  await db.sequelize.authenticate();
+  await sequelize.authenticate();
   try {
-    const tracks = await crawlSpotify(seedPlaylists, 3);
-    for (const track of tracks) {
-      await Track.upsert(track);
-    }
-    console.log(`Crawled and saved ${tracks.length} tracks.`);
+    await crawlSpotify(seedPlaylists, 3);
   } catch (error) {
     console.error("Crawl error:", error);
   } finally {
-    await db.sequelize.close();
+    await sequelize.close();
   }
 })();
