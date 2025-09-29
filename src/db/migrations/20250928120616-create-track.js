@@ -17,7 +17,7 @@ export default {
         allowNull: false,
         defaultValue: JSON.stringify([]),
       },
-      audioPreview: {
+      audio_preview: {
         type: Sequelize.JSON,
         allowNull: false,
         defaultValue: JSON.stringify({ url: "" }),
@@ -27,13 +27,13 @@ export default {
         allowNull: false,
         defaultValue: JSON.stringify([]),
       },
-      releaseDate: {
+      release_date: {
         type: Sequelize.JSON,
         allowNull: false,
         defaultValue: JSON.stringify({ isoString: "" }),
       },
-      createdAt: Sequelize.DATE,
-      updatedAt: Sequelize.DATE,
+      created_at: Sequelize.DATE,
+      updated_at: Sequelize.DATE,
     });
   },
 
