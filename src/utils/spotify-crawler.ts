@@ -74,11 +74,11 @@ const crawlSpotify = async (
     }
   };
 
-  const crawlPlaylist: CrawlFunction = async (id, d) => {
+  const crawlPlaylist: CrawlFunction = async (id, d, type) => {
     if (d <= 0 || visitedPlaylists.has(id)) return;
     visitedPlaylists.add(id);
 
-    await page.goto(`${SPOTIFY_EMBED_ORIGIN}/album/${id}`, {
+    await page.goto(`${SPOTIFY_EMBED_ORIGIN}/${type}/${id}`, {
       waitUntil: "networkidle2",
     });
 
@@ -97,8 +97,8 @@ const crawlSpotify = async (
   };
 
   for (const url of seedPlaylists) {
-    const playlistId = url.split("/").at(-1) ?? "";
-    await crawlPlaylist(playlistId, depth);
+    const [type, id] = url.split("/").slice(-2) as ("playlist" | "album")[];
+    await crawlPlaylist(id, depth, type);
   }
 
   await browser.close();

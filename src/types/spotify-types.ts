@@ -30,6 +30,10 @@ export interface AlbumEntity {
   trackList: Array<{ uri: string }>;
 }
 
+export interface PlaylistEntity {
+  trackList: Array<{ uri: string }>;
+}
+
 export interface ArtistEntity {
   id: string;
   name: string;
@@ -42,7 +46,7 @@ export interface NextData {
     pageProps: {
       state: {
         data: {
-          entity: TrackEntity | AlbumEntity | ArtistEntity;
+          entity: TrackEntity | AlbumEntity | PlaylistEntity | ArtistEntity;
         };
       };
     };
@@ -53,6 +57,12 @@ export interface TrackType extends Omit<TrackEntity, "artists"> {
   artists: string[];
 }
 
-export type CrawlFunction = (id: string, d: number) => Promise<void>;
+export type CrawlFunction = (
+  id: string,
+  d: number,
+  type?: "track" | "album" | "playlist" | "artist"
+) => Promise<void>;
 
-export type SpotifyAlbumUrl = `https://open.spotify.com/album/${string}`;
+export type SpotifyAlbumUrl = `https://open.spotify.com/${
+  | "album"
+  | "playlist"}/${string}`;
