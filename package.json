@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "nodemon --exec tsx server.ts",
     "start": "tsx server.ts",
-    "crawl": "tsx scripts/crawl.ts",
+    "crawl": "tsx src/scripts/crawl.ts",
     "db:migrate": "sequelize-cli db:migrate",
     "db:migrate:undo:all": "sequelize-cli db:migrate:undo:all",
     "migration:create": "sequelize-cli migration:create"
