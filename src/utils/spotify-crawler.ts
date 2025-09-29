@@ -1,3 +1,4 @@
+import { Track } from "@/models/index.ts";
 import {
   AlbumEntity,
   ArtistEntity,
@@ -16,10 +17,9 @@ const visitedTracks = new Set<string>();
 const crawlSpotify = async (
   seedPlaylists: SpotifyAlbumUrl[],
   depth = 3
-): Promise<TrackType[]> => {
+): Promise<void> => {
   const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
-  const results: TrackType[] = [];
   const SPOTIFY_EMBED_ORIGIN = "https://open.spotify.com/embed";
 
   const crawlTrack: CrawlFunction = async (id, d) => {
@@ -37,14 +37,16 @@ const crawlSpotify = async (
 
     const entity = data?.props?.pageProps?.state?.data?.entity as TrackEntity;
 
-    results.push({
+    const track = {
       id: entity.id,
       title: entity.title,
       artists: entity.artists.map((a) => a.name),
       audioPreview: entity.audioPreview,
       image: entity.image,
       releaseDate: entity.releaseDate,
-    });
+    };
+
+    if (track.audioPreview) Track.upsert(track);
 
     for (const artist of entity.artists) {
       const artistId = artist.uri.split(":").at(-1) ?? "";
@@ -97,12 +99,11 @@ const crawlSpotify = async (
   };
 
   for (const url of seedPlaylists) {
-    const [type, id] = url.split("/").slice(-2) as ("playlist" | "album")[];
+    const [type, id] = url.split("/").slice(-2) as ["playlist" | "album", string];
     await crawlPlaylist(id, depth, type);
   }
 
   await browser.close();
-  return results;
 };
 
 export default crawlSpotify;
